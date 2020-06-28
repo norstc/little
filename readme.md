@@ -18,3 +18,8 @@ autoit.run("notepad.exe")
 ## shell
 
 ## batch
+
+## selenium
+```shell script
+pip install selenium
+```
