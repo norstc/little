@@ -26,8 +26,14 @@ print(cfparser.get('POMP_204', 'USERNAME'))
 
 # SET POMP LOGIN INFO
 POMP_RES_URL = cfparser['POMP_RES']['URL']
+POMP_RES_USERNAME = cfparser['POMP_RES']['USERNAME']
+POMP_RES_MOBILE = cfparser['POMP_RES']['MOBILE']
 POMP_LABS_URL = cfparser['POMP_LABS']['URL']
+POMP_LABS_USERNAME = cfparser['POMP_LABS']['USERNAME']
+POMP_LABS_MOBILE = cfparser['POMP_LABS']['MOBILE']
 POMP_204_URL = cfparser['POMP_204']['URL']
+POMP_204_USERNAME = cfparser['POMP_204']['USERNAME']
+POMP_204_MOBILE = cfparser['POMP_204']['MOBILE']
 POMP_208_URL = cfparser['POMP_208']['URL']
 POMP_208_USERNAME = cfparser['POMP_208']['USERNAME']
 POMP_208_MOBILE = cfparser['POMP_208']['MOBILE']
@@ -37,8 +43,14 @@ EUOP_RES_URL = cfparser['EUOP_RES']['URL']
 EUOP_RES_USERNAME = cfparser['EUOP_RES']['USERNAME']
 EUOP_RES_MOBILE = cfparser['EUOP_RES']['MOBILE']
 EUOP_LABS_URL = cfparser['EUOP_LABS']['URL']
+EUOP_LABS_USERNAME = cfparser['EUOP_LABS']['USERNAME']
+EUOP_LABS_MOBILE = cfparser['EUOP_LABS']['MOBILE']
 EUOP_175_URL = cfparser['EUOP_175']['URL']
+EUOP_175_USERNAME = cfparser['EUOP_175']['USERNAME']
+EUOP_175_MOBILE = cfparser['EUOP_175']['MOBILE']
 EUOP_181_URL = cfparser['EUOP_181']['URL']
+EUOP_181_USERNAME = cfparser['EUOP_181']['USERNAME']
+EUOP_181_MOBILE = cfparser['EUOP_181']['MOBILE']
 
 for section_name in cfparser.sections():
     print('section: ', section_name)
@@ -67,6 +79,8 @@ Firefox = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe "
 def say_hi():
     print("hi, there, we love python")
 
+def open_firefox_default():
+    subprocess.call(Firefox + " -no-remote " + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
 
 def open_pomp_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_RES_URL)
@@ -126,9 +140,13 @@ class Application(Frame):
         self.euop_175 = Button(self, text="EUOP 175 top", fg='green', command=open_euop_175)
         self.euop_labs = Button(self, text="EUOP LABS top", fg='green', command=open_euop_labs)
         self.euop_res = Button(self, text="EUOP RES top", fg='green', command=open_euop_res)
+        # buttons for default firefox
+        self.firefox_default = Button(self, text="Firefox default", command=open_firefox_default)
+
         # buttons for other info
         self.hi_there = Button(self)
         self.quit = Button(self, text="QUIT", fg="red", command=self.master.destroy)
+
         self.master = master
         self.pack()
         self.create_widgets()
@@ -138,6 +156,8 @@ class Application(Frame):
         self.hi_there["text"] = "Hello Tk, click me!"
         self.hi_there["command"] = say_hi
         self.hi_there.pack(side="top")
+
+        self.firefox_default.pack(side="top")
 
         #  firefox button ->pomp_res
         self.pomp_res.pack(side="top")
