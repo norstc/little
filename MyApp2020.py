@@ -10,7 +10,7 @@ import subprocess
 from tkinter import *  # notice the little t, it's T for python 2.
 from tkinter import ttk
 
-## get the config file
+# get the config file
 ConfigFile = "config.properties";
 cfparser = ConfigParser()
 cfparser.read(ConfigFile)
@@ -29,6 +29,8 @@ POMP_RES_URL = cfparser['POMP_RES']['URL']
 POMP_LABS_URL = cfparser['POMP_LABS']['URL']
 POMP_204_URL = cfparser['POMP_204']['URL']
 POMP_208_URL = cfparser['POMP_208']['URL']
+POMP_208_USERNAME = cfparser['POMP_208']['USERNAME']
+POMP_208_MOBILE = cfparser['POMP_208']['MOBILE']
 
 # SET EUOP LOGIN INFO
 EUOP_RES_URL = cfparser['EUOP_RES']['URL']
@@ -71,15 +73,21 @@ def open_pomp_res():
 
 
 def open_pomp_labs():
-    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_LABS_URL)
+    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_labs  " + POMP_LABS_URL)
 
 
 def open_pomp_208():
-    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_204_URL)
+    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_208  " + POMP_208_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox")
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_208_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_208_MOBILE)
 
 
 def open_pomp_204():
-    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_208_URL)
+    subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_204  " + POMP_204_URL)
 
 
 def open_euop_res():
