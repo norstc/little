@@ -61,6 +61,7 @@ for section_name in cfparser.sections():
 
 ## browser
 Firefox = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe "
+Chrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe "
 
 
 # CALL BATFILE
@@ -81,6 +82,9 @@ def say_hi():
 
 def open_firefox_default():
     subprocess.call(Firefox + " -no-remote " + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
+
+def open_chrome_default():
+    subprocess.call(Chrome + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
 
 def open_pomp_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_RES_URL)
@@ -178,6 +182,8 @@ class Application(Frame):
         self.euop_res = Button(self, text="EUOP RES top", fg='green', command=open_euop_res)
         # buttons for default firefox
         self.firefox_default = Button(self, text="Firefox default", command=open_firefox_default)
+        # buttons for default chrome
+        self.chrome_default = Button(self, text="Chrome default", command=open_chrome_default)
 
         # buttons for other info
         self.hi_there = Button(self)
@@ -194,6 +200,7 @@ class Application(Frame):
         self.hi_there.pack(side="top")
 
         self.firefox_default.pack(side="top")
+        self.chrome_default.pack(side="top")
 
         #  firefox button ->pomp_res
         self.pomp_res.pack(side="top")
