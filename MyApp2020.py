@@ -84,15 +84,27 @@ def open_firefox_default():
 
 def open_pomp_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_RES_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_RES_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_RES_MOBILE)
 
 
 def open_pomp_labs():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_labs  " + POMP_LABS_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_LABS_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_LABS_MOBILE)
 
 
 def open_pomp_208():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_208  " + POMP_208_URL)
-    autoit.win_wait_active("管理员登录 - Mozilla Firefox")
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
     time.sleep(3)
     autoit.send("{TAB}")
     autoit.send(POMP_208_USERNAME)
@@ -102,11 +114,17 @@ def open_pomp_208():
 
 def open_pomp_204():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_204  " + POMP_204_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_204_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_204_MOBILE)
 
 
 def open_euop_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_res  " + EUOP_RES_URL)
-    autoit.win_wait_active("管理员登录 - Mozilla Firefox")
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
     time.sleep(3)
     autoit.send("{TAB}")
     autoit.send(EUOP_RES_USERNAME)
@@ -117,14 +135,32 @@ def open_euop_res():
 
 def open_euop_labs():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_labs " + EUOP_LABS_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_LABS_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_LABS_MOBILE)
 
 
 def open_euop_181():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_181 " + EUOP_181_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_181_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_181_MOBILE)
 
 
 def open_euop_175():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_175 " + EUOP_175_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_175_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_175_MOBILE)
 
 
 class Application(Frame):
