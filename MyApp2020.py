@@ -3,6 +3,8 @@
 # read the config file
 # ref https://pymotw.com/3/configparser/
 
+import os
+import webbrowser
 import autoit
 import time
 from configparser import ConfigParser
@@ -15,14 +17,14 @@ ConfigFile = "config.properties";
 cfparser = ConfigParser()
 cfparser.read(ConfigFile)
 cfsec = cfparser.sections()
-print(cfsec)
-print("hello")
-print(cfparser['POMP_208']['HOST'])
-print(cfsec[0][0])
-print(cfparser['POMP_204']['HOST'])
 
-print(cfparser.get('POMP_208', 'USERNAME'))
-print(cfparser.get('POMP_204', 'USERNAME'))
+# SET WORK ENV
+JENKINS_MAIN = cfparser['WORK_ENV']['JENKINS_MAIN']
+JENKINS_EUOP_CLOUD = cfparser['WORK_ENV']['JENKINS_EUOP_CLOUD']
+RDMS = cfparser['WORK_ENV']['RDMS']
+TESTLINK = cfparser['WORK_ENV']['TESTLINK']
+MANTIS = cfparser['WORK_ENV']['MANTIS']
+GERRIT = cfparser['WORK_ENV']['GERRIT']
 
 # SET POMP LOGIN INFO
 POMP_RES_URL = cfparser['POMP_RES']['URL']
@@ -61,7 +63,8 @@ for section_name in cfparser.sections():
 
 ## browser
 Firefox = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe "
-Chrome = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe "
+#chrome_path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe %s"
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
 
 # CALL BATFILE
@@ -84,8 +87,10 @@ def open_firefox_default():
     subprocess.call(Firefox + " -no-remote " + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
 
 def open_chrome_default():
-    subprocess.call(Chrome + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
-
+    os.system('taskkill /im chrome.exe')
+    #os.system('start chrome "https://cn.bing.com/?ensearch=1&FORM=BEHPTB" ' ) 这个会打开那个广告网页
+    #subprocess.call(Chrome + JENKINS_MAIN + " "+RDMS)
+    webbrowser.get(chrome_path).open(JENKINS_MAIN)
 def open_pomp_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_RES_URL)
     autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
