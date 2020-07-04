@@ -3,6 +3,8 @@
 # read the config file
 # ref https://pymotw.com/3/configparser/
 
+import os
+import webbrowser
 import autoit
 import time
 from configparser import ConfigParser
@@ -15,14 +17,14 @@ ConfigFile = "config.properties";
 cfparser = ConfigParser()
 cfparser.read(ConfigFile)
 cfsec = cfparser.sections()
-print(cfsec)
-print("hello")
-print(cfparser['POMP_208']['HOST'])
-print(cfsec[0][0])
-print(cfparser['POMP_204']['HOST'])
 
-print(cfparser.get('POMP_208', 'USERNAME'))
-print(cfparser.get('POMP_204', 'USERNAME'))
+# SET WORK ENV
+JENKINS_MAIN = cfparser['WORK_ENV']['JENKINS_MAIN']
+JENKINS_EUOP_CLOUD = cfparser['WORK_ENV']['JENKINS_EUOP_CLOUD']
+RDMS = cfparser['WORK_ENV']['RDMS']
+TESTLINK = cfparser['WORK_ENV']['TESTLINK']
+MANTIS = cfparser['WORK_ENV']['MANTIS']
+GERRIT = cfparser['WORK_ENV']['GERRIT']
 
 # SET POMP LOGIN INFO
 POMP_RES_URL = cfparser['POMP_RES']['URL']
@@ -61,6 +63,8 @@ for section_name in cfparser.sections():
 
 ## browser
 Firefox = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe "
+#chrome_path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe %s"
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
 
 # CALL BATFILE
@@ -82,17 +86,34 @@ def say_hi():
 def open_firefox_default():
     subprocess.call(Firefox + " -no-remote " + "https://cn.bing.com/?ensearch=1&FORM=BEHPTB")
 
+def open_chrome_default():
+    os.system('taskkill /im chrome.exe')
+    #os.system('start chrome "https://cn.bing.com/?ensearch=1&FORM=BEHPTB" ' ) 这个会打开那个广告网页
+    #subprocess.call(Chrome + JENKINS_MAIN + " "+RDMS)
+    webbrowser.get(chrome_path).open(JENKINS_MAIN)
 def open_pomp_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_res  " + POMP_RES_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_RES_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_RES_MOBILE)
 
 
 def open_pomp_labs():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_labs  " + POMP_LABS_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_LABS_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_LABS_MOBILE)
 
 
 def open_pomp_208():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_208  " + POMP_208_URL)
-    autoit.win_wait_active("管理员登录 - Mozilla Firefox")
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
     time.sleep(3)
     autoit.send("{TAB}")
     autoit.send(POMP_208_USERNAME)
@@ -102,11 +123,17 @@ def open_pomp_208():
 
 def open_pomp_204():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/pomp_204  " + POMP_204_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(POMP_204_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(POMP_204_MOBILE)
 
 
 def open_euop_res():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_res  " + EUOP_RES_URL)
-    autoit.win_wait_active("管理员登录 - Mozilla Firefox")
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
     time.sleep(3)
     autoit.send("{TAB}")
     autoit.send(EUOP_RES_USERNAME)
@@ -116,14 +143,32 @@ def open_euop_res():
 
 def open_euop_labs():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_labs " + EUOP_LABS_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_LABS_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_LABS_MOBILE)
 
 
 def open_euop_181():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_181 " + EUOP_181_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_181_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_181_MOBILE)
 
 
 def open_euop_175():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_175 " + EUOP_175_URL)
+    autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
+    time.sleep(3)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_175_USERNAME)
+    autoit.send("{TAB}")
+    autoit.send(EUOP_175_MOBILE)
 
 
 class Application(Frame):
@@ -141,6 +186,8 @@ class Application(Frame):
         self.euop_res = Button(self, text="EUOP RES top", fg='green', command=open_euop_res)
         # buttons for default firefox
         self.firefox_default = Button(self, text="Firefox default", command=open_firefox_default)
+        # buttons for default chrome
+        self.chrome_default = Button(self, text="Chrome default", command=open_chrome_default)
 
         # buttons for other info
         self.hi_there = Button(self)
@@ -157,6 +204,7 @@ class Application(Frame):
         self.hi_there.pack(side="top")
 
         self.firefox_default.pack(side="top")
+        self.chrome_default.pack(side="top")
 
         #  firefox button ->pomp_res
         self.pomp_res.pack(side="top")
