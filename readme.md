@@ -18,11 +18,43 @@ Python 3.8.3
 
 
 
+安装selenium
+
+```shell
+pip install -U selenium
+```
+
+
+
+查看当前安装的selenium
+
+```shell
+pip show selenium
+Name: selenium
+Version: 3.141.0
+Summary: Python bindings for Selenium
+Home-page: https://github.com/SeleniumHQ/selenium/
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: Apache 2.0
+Location: d:\python\python38\lib\site-packages
+Requires: urllib3
+Required-by:
+```
+
+
+
 genckodriver:
 
 https://github.com/mozilla/geckodriver/releases/tag/v0.28.0
 
 下载最新的zip包 geckodriver-v0.28.0-win64.zip ，然后解压，将路径 E:\tech\python\geckodriver-v0.28.0-win64 加到环境变量path
+
+
+
+Firefox:
+
+最新版本：82.0.2
 
 
 
