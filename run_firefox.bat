@@ -1,0 +1,1 @@
+E:\tech\python\pycharmproj\little\venv2\Scripts\python.exe E:\tech\python\pycharmproj\little\MyApp2020.py
