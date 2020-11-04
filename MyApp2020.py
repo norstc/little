@@ -141,7 +141,6 @@ def open_euop_res():
     autoit.send(EUOP_RES_MOBILE)
 
 
-
 def open_euop_labs():
     subprocess.call(Firefox + " -no-remote -profile firefox_profile/euop_labs " + EUOP_LABS_URL)
     autoit.win_wait_active("管理员登录 - Mozilla Firefox",15)
